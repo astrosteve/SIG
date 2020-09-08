@@ -1,0 +1,39 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="interface.css" />
+<title>Steve's Incremental Game</title>
+</head>
+<body>
+<p>
+	<h1>You have <span id="cookies">0</span> stored power.</h1>
+</p>
+
+	<button type="button" onClick="cookieClick(1)">Gain Power</button>
+<br />
+<p>
+<table>
+  <tr>
+    <th colspan="2">Power Enhancers</th>
+  </tr>
+  <tr>
+    <td><button type="button" onClick="buyCursor()">Buy meditating monk</button></td>
+    <td><button type="button" onClick="buyLama()">Buy praying Lama</button></td>
+  </tr>
+  <tr>
+	<td>Monks: <span id="cursors">0</span></td>
+	<td>Lamas: <span id="Lama">0</span></td>
+  <tr>
+	<td>Cost: <span id="cursorCost">10</span></td>
+	<td>Cost: <span id="LamaCost">100</span></td>
+  </tr>
+</table>
+</p>
+Total Power gained is <span id="TotalPower">0</span> per turn.
+<p>
+Message Log: <br />
+<span id="result">None</span>
+</p>
+
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
