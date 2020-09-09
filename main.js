@@ -45,7 +45,7 @@ function buyLama(){
     } else {
 		genError();
 	};
-    var LamaNext = Math.floor(10 * Math.pow(1.3,Lama));     	  	//works out the cost of the next cursor
+    var LamaNext = Math.floor(100 * Math.pow(1.3,Lama));     	  	//works out the cost of the next cursor
     document.getElementById('LamaCost').innerHTML = LamaCost;  		//updates the cursor cost for the user
 	document.getElementById('totalHoused').innerHTML = totalHoused; // Update display of total housed.
 };

@@ -1,0 +1,20 @@
+PATCH NOTES:
+
+9/9/2020 - Version 1. This is actually the third revision I've commited to github, but the first where I've written notes, so this is officially
+Version 1 of SIG. It's considered to be in the Building/Prototype stage now, not even considered a game yet, really.
+
+KNOWN ISSUES:
+
+* Lama cost is still funky. I can't figure out the problem, but it doesn't seem to be displaying correctly. Weird as it's an almost exact copy of the Monks function, which works fine.
+
+FEATURES PLANNED:
+
+Features will be added roughly based on their priorities.
+
+* Add land owned, add ability to acquire additional land. (High priority)
+* Add non-power generating buy options that affect the power options. (eg, a bakery to supply your Monks and Lamas with food. Mid-priority.)
+* Options to use your acquired power for more than just buying monks, lamas and bakeries. (eg, stuff totally unrelated to power acquisition.
+  short term mid priority, long term high priority.)
+* Story mode, which enables you to learn about yourself and your abilities. (short term low priority, long term high priority)
+* Option to pick a number of items to buy. 10 Monks instead of 1, 150 housing instead of 10, etc. (Low priority)
+
