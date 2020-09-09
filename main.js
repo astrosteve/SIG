@@ -7,8 +7,9 @@ var defense = 1;
 var special = 1;
 let result;
 var timeCount = 0;
-var housingAvail = 10; 					// Start off with enough housing for 50 monks/llamas
+var housingAvail = 10; 		// Start off with enough housing for 50 monks/llamas
 var totalHoused = 0;		// Total housing used.
+var housingCost = 150;		// Base cost to increase housing.
 
 function cookieClick(number){
     cookies = cookies + number;
@@ -27,13 +28,14 @@ function buyCursor(){											 // For Meditating Monks. Was originally called 
 		genError();												 // Something is wrong, generate error.
 		
 	};
-    var nextCost = Math.floor(10 * Math.pow(1.1,cursors));       //works out the cost of the next cursor
-    document.getElementById('cursorCost').innerHTML = nextCost;  //updates the cursor cost for the user
+    var nextCost = Math.floor(10 * Math.pow(1.1,cursors));          //works out the cost of the next cursor
+    document.getElementById('cursorCost').innerHTML = nextCost;     //updates the cursor cost for the user
+	document.getElementById('totalHoused').innerHTML = totalHoused; // Update display of total housed.
 };
 
 function buyLama(){
     var LamaCost = Math.floor(100 * Math.pow(1.3,Lama));     		//works out the cost of this cursor
-    if (cookies >= LamaCost && totalHoused < housingAvail){          //checks that the player can afford the cursor
+    if (cookies >= LamaCost && totalHoused < housingAvail){         //checks that the player can afford the cursor
         Lama = Lama + 1;                                   			//increases number of cursors
 		LamaPower = LamaPower + 10;									//Need a second variable to track how much Cookies increases by.
     	cookies = cookies - LamaCost;                          		//removes the cookies spent
@@ -45,6 +47,17 @@ function buyLama(){
 	};
     var LamaNext = Math.floor(10 * Math.pow(1.3,Lama));     	  	//works out the cost of the next cursor
     document.getElementById('LamaCost').innerHTML = LamaCost;  		//updates the cursor cost for the user
+	document.getElementById('totalHoused').innerHTML = totalHoused; // Update display of total housed.
+};
+
+function buyHousing() {
+	if (cookies >= housingCost) {
+		housingAvail = housingAvail+10;
+		cookies = cookies - housingCost;
+	} else {
+		genError();
+	};
+	document.getElementById('housingAvail').innerHTML = housingAvail;
 };
 
 function CalcPower() {
@@ -55,7 +68,7 @@ function CalcPower() {
 function genError() {
 	result = "You do not have enough available resources!";		
 	document.getElementById('result').innerHTML = result;			// Update error log for player.
-	timeCount = 5;													// Leave error up for 5 cycles before clearing it.
+	timeCount = 3;													// Leave error up for 5 cycles before clearing it.
 
 };
 

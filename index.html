@@ -7,9 +7,16 @@
 <p>
 	<h1>You have <span id="cookies">0</span> stored power.</h1>
 </p>
-
-	<button type="button" onClick="cookieClick(1)">Gain Power</button>
-<br />
+<table>
+	<tr>
+	 <th colspan ="2">Buy stuff</th>
+	</tr>
+	<tr>
+	<td><button type="button" onClick="cookieClick(1)">Gain Power</button></td>
+	<td><button type="button" onClick="buyHousing()">Buy Housing</button></td>
+	</tr>
+</table>
+	
 <p>
 <table>
   <tr>
@@ -28,7 +35,8 @@
   </tr>
 </table>
 </p>
-Total Power gained is <span id="TotalPower">0</span> per turn.
+Total Power gained is <span id="TotalPower">0</span> per turn. <br />
+You currently have room for <span id="housingAvail">10</span> followers. You currently have <span id="totalHoused">0</span> followers.
 <p>
 Message Log: <br />
 <span id="result">None</span>
