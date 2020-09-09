@@ -5,7 +5,7 @@ no way to raise that limit. It doesn't do anything else, really.
 
 Upcoming:
 
-* Add a way to increase housing and display housing limit on screen. - done
+* Add a way to increase housing and display housing limit on screen. - done, though I want to expand functonality.
 * Add more stuff to buy.
 * Add geographic information. (It'll eventually have a procedurally generated game world you can interact with, if I get that far.)
 
