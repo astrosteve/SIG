@@ -14,29 +14,76 @@
 	<tr>
 	<td><button type="button" onClick="cookieClick(1)">Gain Power</button></td>
 	<td><button type="button" onClick="buyHousing()">Buy Housing</button></td>
+	<td><button type="button" onClick="recruitSoldier()">Recruit Soldier</button</td>
 	</tr>
 </table>
 	
 <p>
 <table>
-  <tr>
-    <th colspan="2">Power Enhancers</th>
-  </tr>
-  <tr>
-    <td><button type="button" onClick="buyCursor()">Buy meditating monk</button></td>
-    <td><button type="button" onClick="buyLama()">Buy praying Lama</button></td>
-  </tr>
-  <tr>
-	<td>Monks: <span id="cursors">0</span></td>
-	<td>Lamas: <span id="Lama">0</span></td>
-  <tr>
-	<td>Cost: <span id="cursorCost">10</span></td>
-	<td>Cost: <span id="LamaCost">100</span></td>
-  </tr>
+	<td>
+		<table>
+			<tr>
+			  <th colspan="2">Power Enhancers</th>
+			</tr>
+			<tr>
+			  <td><button type="button" onClick="buyCursor()">Buy meditating monk</button></td>
+			  <td><button type="button" onClick="buyLama()">Buy praying Lama</button></td>
+			</tr>
+			<tr>
+			  <td>Monks: <span id="cursors">0</span></td>
+			  <td>Lamas: <span id="Lama">0</span></td>
+			</tr>
+			<tr>
+			  <td>Cost: <span id="cursorCost">10</span></td>
+			  <td>Cost: <span id="LamaCost">100</span></td>
+			</tr>
+		</table>
+	</td>
+	<td>
+		<table>
+			<tr>
+			  <th>City Buildings</th>
+			</tr>
+				<tr>
+				  <td><button type="button" onClick="buyBakery()">Buy Bakery</button></td>
+				</tr>
+				<tr>
+			     <td>Bakeries: <span id="bakeryOwned">0</span></td>
+				</tr>
+				<tr>
+				  <td>Cost: <span id="bakeryCost">300</span></td>
+				</tr>
+		</table>
+	</td>
 </table>
 </p>
-Total Power gained is <span id="TotalPower">0</span> per turn. <br />
-You currently have room for <span id="housingAvail">10</span> followers. You currently have <span id="totalHoused">0</span> followers.
+
+<table>
+	<tr>
+	  <th colspan="4">Statistics</th>
+	</tr>
+	<tr>
+	  <td>Power per Turn</td>
+	  <td>Followers</td>
+	  <td>Available Rooms</td>
+	  <td>Bread Loaves</td>
+	  <td>Loaves Needed</td>
+	</tr>
+	<tr>
+	  <td><span id="TotalPower">0</span></td>
+	  <td><span id="totalHoused">0</span></td>
+	  <td><span id="housingAvail">10</span></td>
+	  <td><span id="breadLoaves">0</span></td>
+	  <td><span id="breadReq">0</span></td>
+	</tr>
+	<tr>
+	  <td>Soldiers</td>
+	</tr>
+	<tr>
+	  <td><span id="totalSoldier">0</span></td>
+	</tr>
+</table>
+
 <p>
 Message Log: <br />
 <span id="result">None</span>
