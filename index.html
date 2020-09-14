@@ -9,19 +9,14 @@
 </p>
 <table>
 	<tr>
-	 <th colspan ="2">Buy stuff</th>
-	</tr>
-	<tr>
 	<td><button type="button" onClick="cookieClick(1)">Gain Power</button></td>
-	<td><button type="button" onClick="buyHousing()">Buy Housing</button></td>
-	<td><button type="button" onClick="recruitSoldier()">Recruit Soldier</button</td>
 	</tr>
 </table>
 	
 <p>
 <table>
 	<td>
-		<table>
+		<table id="power">
 			<tr>
 			  <th colspan="2">Power Enhancers</th>
 			</tr>
@@ -37,6 +32,21 @@
 			  <td>Cost: <span id="cursorCost">10</span></td>
 			  <td>Cost: <span id="LamaCost">100</span></td>
 			</tr>
+			<tr>
+			   <th colspan="2">Units</th>
+			</tr>
+			<tr>
+			   <td><button type="button" onClick="recruitSoldier()">Recruit Soldier</button></td>
+			   <td><button type="button" onClick="recruitMissionary()">Recruit Missionary</button></td>
+			</tr>
+			<tr>
+			   <td>Soldiers: <span id="totalSoldier">0</span></td>
+			   <td>Missionaries: <span id="totalMissionary">0</span></td>
+			</tr>
+			<tr>
+			   <td>Cost: <span id="costSoldier">50</span></td>
+			   <td>Cost: <span id="costMissionary">15</span></td>
+			</tr>
 		</table>
 	</td>
 	<td>
@@ -46,12 +56,15 @@
 			</tr>
 				<tr>
 				  <td><button type="button" onClick="buyBakery()">Buy Bakery</button></td>
+				  <td><button type="button" onClick="buyHousing()">Buy Housing</button></td>
 				</tr>
 				<tr>
 			     <td>Bakeries: <span id="bakeryOwned">0</span></td>
+				 <td>Housing: <span id="housingAvail">10</span></td>
 				</tr>
 				<tr>
 				  <td>Cost: <span id="bakeryCost">300</span></td>
+				  <td>Cost: </span id="housingCost">150</span></td>
 				</tr>
 		</table>
 	</td>
@@ -60,27 +73,35 @@
 
 <table>
 	<tr>
-	  <th colspan="4">Statistics</th>
+	  <th colspan="5">Statistics</th>
 	</tr>
 	<tr>
-	  <td>Power per Turn</td>
-	  <td>Followers</td>
-	  <td>Available Rooms</td>
-	  <td>Bread Loaves</td>
-	  <td>Loaves Needed</td>
+	  <td><b>Power per Turn</b></td>
+	  <td><b>Followers</b></td>
+	  <td><b>Available Rooms</b></td>
+	  <td><b>Bread Loaves</b></td>
+	  <td><b>Loaves Needed</b></td>
 	</tr>
 	<tr>
 	  <td><span id="TotalPower">0</span></td>
 	  <td><span id="totalHoused">0</span></td>
-	  <td><span id="housingAvail">10</span></td>
+	  <td><span id="housingAvail2">10</span></td>
 	  <td><span id="breadLoaves">0</span></td>
 	  <td><span id="breadReq">0</span></td>
 	</tr>
 	<tr>
-	  <td>Soldiers</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td><b>Bread Production</b></td>
+	  <td></td>
 	</tr>
 	<tr>
-	  <td><span id="totalSoldier">0</span></td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td><span id="breadProd">0</span></td>
+	  <td></td>
 	</tr>
 </table>
 

@@ -3,3 +3,5 @@ table, th, td {
   border-collapse: collapse;
   text-align: center;
 }
+
+#power th:nth-child(odd){background-color: #eb2138;}

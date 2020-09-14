@@ -1,6 +1,14 @@
 PATCH NOTES:
 
-9/10/20 - Version 2: 
+9/13/20 - Version 3
+
+* Added starvation and death for monks and lamas. Soldiers and Missionaries are currently immortal.  You would not believe how long it took me to get this to work right.
+
+* Redid the HTML file a bit and moved some stuff around.
+
+* Probably other stuff, but it's midnight and I'm tired.
+
+9/10/20 - Version 3: 
 * Added Bread, Bakeries and Soldiers. Monks, Lamas, Soldiers now all need food. Food cannot go negative and there is not yet any penalty for not having
 food.
 
@@ -16,15 +24,20 @@ Version 1 of SIG. It's considered to be in the Building/Prototype stage now, not
 
 KNOWN ISSUES:
 
-* Error does not display when you try to recruit a soldier but do not have enough power.
+* Numbers get a little funky when people start dying and don't update. I think most stuff should be updating correctly now.
+ 
+* Error does not display when you try to recruit a soldier but do not have enough power. (FIXED)
 
 FEATURES PLANNED:
 
 Features will be added roughly based on their priorities.
 
-* Add non-power generating buy options that affect the power options. (eg, a bakery to supply your Monks and Lamas with food. Mid-priority.)
-* Options to use your acquired power for more than just buying monks, lamas and bakeries. (eg, stuff totally unrelated to power acquisition.
+* Do something, anything, with soldiers and missionaries! (high priority)
+* Add non-power generating buy options that affect the power options. (eg, a bakery to supply your Monks and Lamas with food. Mid-priority.) - In Progress
+* Options to use your acquired power for more than just buying monks, lamas and bakeries. (eg, stuff totally unrelated to power acquisition.) - In Progress
   short term mid priority, long term high priority.)
 * Story mode, which enables you to learn about yourself and your abilities. (short term low priority, long term high priority)
 * Option to pick a number of items to buy. 10 Monks instead of 1, 150 housing instead of 10, etc. (Low priority)
 * Add land owned, add ability to acquire additional land. (Low priority)
+* Add Save/Load function. (mid priority)
+* Figure out high priority issues since there are none. (High priority)
