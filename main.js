@@ -15,7 +15,7 @@ var totalHoused = 0;		// Total housing used.
 var housingCost = 150;		// Base cost to increase housing.
 var bakeryCost = 300;       // Cost of one bakery. Price is currently static but I may change that.
 var bakeryOwned = 0;        // How many bakeries you own.
-var breadLoaves = 0;		// How many loaves they have.
+var breadLoaves = 25;		// How many loaves they have. Start at 25.
 var starving = 0;			// Out of bread and everyone is starving.
 var starvingCycles = 0;		// How many cycles they've been starving.
 var costSoldier = 50;		// How much a soldier costs to recruit
@@ -28,7 +28,8 @@ var totalMissionary = 0; 	// How many Missionaries
 // Currently not using acreage. Unsure how/if I want to do that.
 var ownedLand = 2;			// Land at start of game. In acres.
 var liveRatio = 20;			// How much housing (as shown in housingAvail) can fit on an acre.
-
+var saveCycle = 90;							// Save every 90 cycles.
+var saveCount;								// Counter for saving
 
 function cookieClick(number){
     cookies = cookies + number;
@@ -266,6 +267,75 @@ function endMaint() {											// End of turn maintenance. Just checking for hu
 	document.getElementById('result').innerHTML = result;
 };
 
+function saveGame() {											// Saves game
+	var save = {												// All the variables needed to save.
+    cookies: cookies,
+    cursors: cursors,
+    Lama: Lama,
+	LamaPower: LamaPower,
+	housingAvail: housingAvail,
+	totalHoused: totalHoused,
+	bakeryOwned: bakeryOwned,
+	breadLoaves: breadLoaves,
+	totalSoldier: totalSoldier,
+	totalMissionary: totalMissionary
+};
+	localStorage.setItem("save",JSON.stringify(save));
+};
+
+function autoSave() {											// Auto save every saveCycle cycles. (Currently 90)
+		if (saveCount == saveCycle) {
+			saveGame();
+			saveCount = 0;
+		} else {
+			saveCount++;
+		};	
+};
+
+function loadGame() {
+	var savedGame = JSON.parse(localStorage.getItem("save"));
+	if (typeof savedGame.cookies !== "undefined") {	            // Make sure value exists in save before setting anything.
+		cookies = savedGame.cookies;
+	};
+	if (typeof savedGame.cursors !== "undefined") { 
+		cursors = savedGame.cursors;
+	};
+	if (typeof savedGame.Lama !== "undefined") {
+		Lama = savedGame.Lama;
+	};
+	if (typeof savedGame.LamaPower !== "undefined") { 
+		LamaPower = savedGame.LamaPower;
+	};
+	if (typeof savedGame.housingAvail !== "undefined") {
+		housingAvail = savedGame.housingAvail;
+	};
+	if (typeof savedGame.totalHoused !== "undefined") {
+		totalHoused = savedGame.totalHoused;
+	};
+	if (typeof savedGame.bakeryOwned !== "undefined") {
+		bakeryOwned = savedGame.bakeryOwned;
+	};
+	if (typeof savedGame.breadLoaves !== "undefined") {
+		breadLoaves = savedGame.breadLoaves;
+	};
+	if (typeof savedGame.totalSoldier !== "undefined") {
+		totalSoldier = savedGame.totalSoldier;
+	};
+	if (typeof savedGame.totalMissionary !== "undefined") {
+		totalMissionary = savedGame.totalMissionary;
+	};
+	
+	document.getElementById('Lama').innerHTML = Lama;				// Make sure everything loaded is updated on screen.
+	document.getElementById('cursors').innerHTML = cursors;
+	document.getElementById('housingAvail').innerHTML = housingAvail;
+	document.getElementById('housingAvail2').innerHTML = housingAvail;
+	document.getElementById('totalHoused').innerHTML = totalHoused;
+	document.getElementById('bakeryOwned').innerHTML = bakeryOwned;
+	document.getElementById('breadLoaves').innerHTML = breadLoaves;
+	document.getElementById('totalSoldier').innerHTML = totalSoldier;
+	document.getElementById('totalMissionary').innerHTML = totalMissionary;
+	
+};
 
 // Main game loop for anything automated.
 window.setInterval(function() {
@@ -274,4 +344,5 @@ window.setInterval(function() {
 	decreaseTimer();											// Check if any messages are displayed, if so reduce time left to display.
 	breadGen();													// Generate Bread!
 	endMaint();													// Do any end-of-turn maintenance.
+	autoSave();													// Autosaves periodically.
 }, 1000);

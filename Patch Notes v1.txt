@@ -1,5 +1,9 @@
 PATCH NOTES:
 
+9/18/20 - Version 4
+
+* Added save/load system and periodic autosave. (Currently every 90 cycles)
+
 9/13/20 - Version 3
 
 * Added starvation and death for monks and lamas. Soldiers and Missionaries are currently immortal.  You would not believe how long it took me to get this to work right.
@@ -24,7 +28,8 @@ Version 1 of SIG. It's considered to be in the Building/Prototype stage now, not
 
 KNOWN ISSUES:
 
-* Numbers get a little funky when people start dying and don't update. I think most stuff should be updating correctly now.
+* Numbers get a little funky when people start dying and don't update. I think most stuff should be updating correctly now. As of Version 4, everything
+  seems okay. (Tentatively fixed)
  
 * Error does not display when you try to recruit a soldier but do not have enough power. (FIXED)
 
