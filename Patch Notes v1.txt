@@ -1,5 +1,25 @@
 PATCH NOTES:
 
+9/20/20 - Version 5
+
+* Started combat engine for dungeon raiding. Still a long way from being functional, but it's getting there. Since this version isn't technically fully running,
+  committing it to a new branch.
+
+* Changed the order of the main loop around to put things in an order that makes more sense. They were originally in the order I created the functions.
+
+* Added message to indicate game autosaved.
+
+* Fixed various spots with screwed up formatting.
+
+* Soldiers now become Privates on being hired. There's five ranks total, none of which have any meaning yet. (Private, Major, Captain, Colonel, General) 
+  Eventually they'll be used for something. Something involving war with (as of now) unimplemented foreign nations.
+
+* Disabled autosave as I realized there's a problem: If you load the page and let it sit there for 90 cycles, it'll save a new game over any previous game.
+  Until I figure out how to fix this, I'd rather autosave just not be a thing.
+  
+* Removed variables I declared but never used anywhere in the code. Unsure what they were intended for.
+
+
 9/18/20 - Version 4
 
 * Added save/load system and periodic autosave. (Currently every 90 cycles)
@@ -37,12 +57,11 @@ FEATURES PLANNED:
 
 Features will be added roughly based on their priorities.
 
-* Do something, anything, with soldiers and missionaries! (high priority)
+* Do something, anything, with soldiers and missionaries! (high priority) - In Progress
 * Add non-power generating buy options that affect the power options. (eg, a bakery to supply your Monks and Lamas with food. Mid-priority.) - In Progress
 * Options to use your acquired power for more than just buying monks, lamas and bakeries. (eg, stuff totally unrelated to power acquisition.) - In Progress
   short term mid priority, long term high priority.)
 * Story mode, which enables you to learn about yourself and your abilities. (short term low priority, long term high priority)
 * Option to pick a number of items to buy. 10 Monks instead of 1, 150 housing instead of 10, etc. (Low priority)
 * Add land owned, add ability to acquire additional land. (Low priority)
-* Add Save/Load function. (mid priority)
-* Figure out high priority issues since there are none. (High priority)
+* Add Save/Load function. (mid priority) - Completed

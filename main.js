@@ -2,10 +2,8 @@ var cookies = 0;
 var cursors = 0;
 var Lama = 0;
 var LamaPower = 0;
-var power = 1;
-var defense = 1;
-var special = 1;
 let result;
+let log;					// Message log for dungeon raids.
 // var messages = ["None", "None", "None", "None", "None"];   // An array that will contain error message to be displayed. Not yet used.
 var mesPos = 1;					// Position to write next message to.
 var timeCount = 0;
@@ -29,7 +27,27 @@ var totalMissionary = 0; 	// How many Missionaries
 var ownedLand = 2;			// Land at start of game. In acres.
 var liveRatio = 20;			// How much housing (as shown in housingAvail) can fit on an acre.
 var saveCycle = 90;							// Save every 90 cycles.
-var saveCount;								// Counter for saving
+var saveCount = 0;								// Counter for saving
+let dungeonName;
+
+var unitsTotal = 0;
+var privates = 0;
+var majors = 0;
+var captains = 0;
+var colonels = 0;
+var generals = 0;
+var rooms = 0;
+var battles = 0;
+
+var npc = {					// NPC object, used for raiding.
+  attack: 0,
+  defense: 0,
+  damage: 0,
+  hp: 0,
+  name: "null"
+};
+
+
 
 function cookieClick(number){
     cookies = cookies + number;
@@ -145,6 +163,35 @@ function recruitSoldier() {
 	document.getElementById('totalHoused').innerHTML = totalHoused;
 };
 
+function viewMilitary() {
+	toggleMilitary();												// I could probably just call ToggleMilitary directly.
+	calcMilitary();													// Make sure info is up to date, despite it being part of a game cycle.
+};
+
+function calcMilitary() {											// Calculates the number of men in military.
+	var maxGenerals = 7;												// Maximum number of generals allowed to exist at once.
+	
+	if (totalSoldier == 0) {
+		unitsTotal = 0;									// Make sure everything is set to zero since we have no military at all.
+		privates = 0;
+		majors = 0;
+		captains = 0;
+		colonels = 0;
+		generals = 0;
+	} else {
+		if (unitsTotal < totalSoldier) {
+			privates += (totalSoldier - unitsTotal);  // A positive difference between the two indicates new soldiers, which are privates.
+			unitsTotal = totalSoldier;
+		};
+		
+	};
+	document.getElementById('privates').innerHTML = privates;
+	document.getElementById('majors').innerHTML = majors;
+	document.getElementById('captains').innerHTML = captains;
+	document.getElementById('colonels').innerHTML = colonels;
+	document.getElementById('generals').innerHTML = generals;
+};
+
 function recruitMissionary() {
 	if (cookies >= costMissionary && totalHoused < housingAvail) {		// Check power & housing
 		totalMissionary++;
@@ -166,6 +213,101 @@ function recruitMissionary() {
 	document.getElementById('totalHoused').innerHTML = totalHoused;
 };
 
+function raidDungeon() {
+	var loop;
+	var privates = 5;												// For now, 5 privates go on raid.
+	generateDungeon();												// Generate a dungeon to raid.
+	for (loop = 1; loop <= rooms; loop++) {                         // Start at room 1 and fight your way through!
+		if (battles > 0) {											// Do all battles first.
+			generateNPC();											// Generate an NPC for the room
+			combat(privates, npc);									// Run combat between privates and npc.
+	};
+};
+
+var adjective = ["null", "Ancient", "Windy", "Sacred", "Hollow", "Unexplored", "Deadly"];	// To make things easier, everything starts at 1. 0 is always null.
+var placename = ["null", "Caverns", "Ruins", "Forest", "Jungle", "Desert", "Wasteland"];
+
+function generateDungeon() {
+	// Name Generation
+	var adj = adjective[randNumber(1, 6)];										// Number to pull from name array
+	var name = placename[randNumber(1, 6)];										// Name of/second word in dungeon name.
+	dungeonName = adj + " " + name;												// Form full name. I could in theory do all this in one line, but eh.
+	// I intend to flesh out name generation at some point in the future.
+	document.getElementById("dungeonName").innerHTML = dungeonName;
+	// Generates dungeon itself.
+	rooms = randNumber(5, 12);												// Dungeons have between 5 and 12 rooms.
+	battles = randNumber(1,5);												// Base number of battles per dungeon. Modifiers will be added.
+	
+};
+
+var npcTypes = ["null", "Goblin", "Hobgoblin", "Slime", "Bearbug", "Kobold"];		// npc name
+var npcDef   = ["null", 14      , 16         , 11     , 15       , 14];				// Defense/AC
+var npcAtk   = [0     , 3       , 4          , 1      , 4        , 3];				// Attack bonus
+var npcDam   = [0     , 6       , 8          , 4      , 8        , 6];				// Damage expressed as part of 1dX. Multiple dice (2d6) not supported yet. 
+// NPC arrays. I could put this in an object, but I don't really like working with objects. (says the guy using objects for npc and save data)
+
+function generateNPC() {
+	var npcType = randNumber(1,5);									// Determine the sort of enemy we're facing. Correlate with npctypes array.
+	npc.name = npcTypes[npcType];
+	npc.defense = npcDef[npcType];
+	npc.hp = randNumber(1,8) + 2;									// All monsters have same HP for testing purposes.
+	npc.attack = npcAtk[npcType];
+};
+
+/* var npc = {					// NPC object, used for raiding.
+  attack: 0,
+  defense: 0,
+  damage: 0,
+  hp: 0,
+  name: "null"
+};
+
+*/
+
+function combat(military, enemy) {									// Can only support one on one duels right now. All five privates fight in succession until one wins.
+	var privateDef = 15;
+	var privateHP = randNumber(1,6) + 1;							// Privates are a little weaker HP-wise than enemies. Majors would be a little stronger.
+	var privateAtk = 3;
+	var privateDam = 6;												// Damage is expressed as the final part of 1dX. Does not support stuff like 2d6 yet.
+	var name = 'Private';
+	var initMilitary = randNumber(1,20);
+	var initEnemy = randNumber(1,20);								// Just a straight d20 roll to determine who goes first.
+	var roundDamage = 0;
+	var turn = 0;
+	
+	if (initEnemy > initMilitary) {
+		turn = 1;
+	} else {
+		turn = 2;
+	}; // Turn 1 = enemy, turn 2 = player
+	
+	if (turn = 1) {
+		if (randNumber(1,20)+npc.attack) => privateDef {
+		roundDamage = randNumber(npc.damage);
+		privateHP -= roundDamage;
+		};
+		if privateHP <= 0 {
+			military--;
+		};
+		
+	if (turn = 2) {
+		if (randNumber(1,20)+privateAtk) => npc.defense {
+		roundDamage = randNumber(privateDam);
+		npc.hp -= roundDamage;
+		if npc.hp <= 0 {
+			// Put something here to do when npc dies
+		};
+		
+	};
+		
+	
+};
+
+
+function randNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
 function CalcPower() {
 	TotalPower = LamaPower + cursors; 								// Calculate the total power.
 	if (starving == 1) {
@@ -175,6 +317,17 @@ function CalcPower() {
 			TotalPower = 0;
 		};
 		if (starvingCycles > 15 && starving == 1) {					// They have 15 cycles to get out of starving before bad things happen.
+				if (totalSoldier >= 1) {							// Soldiers are dying.
+					totalSoldier--;
+					totalHoused--;
+					if (privates >= 1) {							// Correct categories for death. They die from the bottom up.
+						privates--;
+					};
+					if (privates == 0 && majors >= 1) {				// I'm not going any further with this yet as only privates can exist in game atm.
+						majors--;
+					};
+				};
+				
 				if (Lama >= 1) {
 					Lama--;											// Lamas die first, followed by monks.
 					LamaPower -= 10;								// Decrease power.
@@ -184,6 +337,7 @@ function CalcPower() {
 					cursors--;
 					totalHoused -= 1;
 				};
+				
 		// Will be adding Soldier and Missionaries in here once they actually do something beside eat your bread and take up housing.
 		};
 		starvingCycles++;
@@ -210,6 +364,9 @@ function genError(errorCode) {
 			break;
 			case 4:														// 4 is not enough bread.
 		       result = "You need more bread for this!";					
+			break;
+			case 5:														// 5 is not enough soldiers for a raid.
+				result = "You need more soldiers for this!";			
 			break;
 			default:													// Generic message if no match.
 			   result = "You cannot do that now.";
@@ -269,17 +426,18 @@ function endMaint() {											// End of turn maintenance. Just checking for hu
 
 function saveGame() {											// Saves game
 	var save = {												// All the variables needed to save.
-    cookies: cookies,
-    cursors: cursors,
-    Lama: Lama,
-	LamaPower: LamaPower,
-	housingAvail: housingAvail,
-	totalHoused: totalHoused,
-	bakeryOwned: bakeryOwned,
-	breadLoaves: breadLoaves,
-	totalSoldier: totalSoldier,
-	totalMissionary: totalMissionary
-};
+		cookies: cookies,
+		cursors: cursors,
+		Lama: Lama,
+		LamaPower: LamaPower,
+		housingAvail: housingAvail,
+		totalHoused: totalHoused,
+		bakeryOwned: bakeryOwned,
+		breadLoaves: breadLoaves,
+		totalSoldier: totalSoldier,
+		totalMissionary: totalMissionary,
+		saveCount: saveCount
+	};
 	localStorage.setItem("save",JSON.stringify(save));
 };
 
@@ -287,9 +445,14 @@ function autoSave() {											// Auto save every saveCycle cycles. (Currently 
 		if (saveCount == saveCycle) {
 			saveGame();
 			saveCount = 0;
+			if (starving != 1) {								// Only update message if no one is starving.
+				result = "Game autosaved";
+				timeCount = 2;
+				document.getElementById('result').innerHTML = result;
+			};
 		} else {
 			saveCount++;
-		};	
+		};
 };
 
 function loadGame() {
@@ -324,6 +487,10 @@ function loadGame() {
 	if (typeof savedGame.totalMissionary !== "undefined") {
 		totalMissionary = savedGame.totalMissionary;
 	};
+	if (typeof savedGame.saveCount !== "undefined") {			// Not sure if I need to restore the state of the autosave counter.
+		saveCount = savedGame.saveCount;
+	};
+	
 	
 	document.getElementById('Lama').innerHTML = Lama;				// Make sure everything loaded is updated on screen.
 	document.getElementById('cursors').innerHTML = cursors;
@@ -337,12 +504,22 @@ function loadGame() {
 	
 };
 
+function toggleMilitary() {
+  var x = document.getElementById("military");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
 // Main game loop for anything automated.
 window.setInterval(function() {
-	CalcPower();												// Calculate total power generated from monks/lamas 
+	CalcPower();												// Calculate total power generated from monks/lamas. 
 	cookieClick(TotalPower);									// Add TotalPower to cookies.
-	decreaseTimer();											// Check if any messages are displayed, if so reduce time left to display.
 	breadGen();													// Generate Bread!
+	calcMilitary();												// Update the military table.
 	endMaint();													// Do any end-of-turn maintenance.
-	autoSave();													// Autosaves periodically.
+//	autoSave();													// Autosaves periodically.
+	decreaseTimer();											// Check if any messages are displayed, if so reduce time left to display.
 }, 1000);

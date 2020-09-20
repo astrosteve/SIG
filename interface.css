@@ -5,3 +5,10 @@ table, th, td {
 }
 
 #power th:nth-child(odd){background-color: #eb2138;}
+
+#military {
+  width: 100%;
+  padding: 0px 0;
+  text-align: center;
+  margin-top: 10px;
+}
