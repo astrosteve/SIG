@@ -220,8 +220,14 @@ function raidDungeon() {
 	for (loop = 1; loop <= rooms; loop++) {                         // Start at room 1 and fight your way through!
 		if (battles > 0) {											// Do all battles first.
 			generateNPC();											// Generate an NPC for the room
-			combat(privates, npc);									// Run combat between privates and npc.
+			endResult = combat(privates, npc);						// Run combat between privates and npc.
 	};
+	if (endResult == 1) {
+		// Eventually they'll get an item for winning. For now, this loop does nothing except print a debug statement.
+		console.log('Military won');
+	
+	};
+
 };
 
 var adjective = ["null", "Ancient", "Windy", "Sacred", "Hollow", "Unexplored", "Deadly"];	// To make things easier, everything starts at 1. 0 is always null.
@@ -235,7 +241,7 @@ function generateDungeon() {
 	// I intend to flesh out name generation at some point in the future.
 	document.getElementById("dungeonName").innerHTML = dungeonName;
 	// Generates dungeon itself.
-	rooms = randNumber(5, 12);												// Dungeons have between 5 and 12 rooms.
+	rooms = randNumber(5, 12);												// Dungeons have between 5 and 12 rooms. Non-battle rooms don't do anything yet.
 	battles = randNumber(1,5);												// Base number of battles per dungeon. Modifiers will be added.
 	
 };
@@ -269,40 +275,53 @@ function combat(military, enemy) {									// Can only support one on one duels 
 	var privateHP = randNumber(1,6) + 1;							// Privates are a little weaker HP-wise than enemies. Majors would be a little stronger.
 	var privateAtk = 3;
 	var privateDam = 6;												// Damage is expressed as the final part of 1dX. Does not support stuff like 2d6 yet.
-	var name = 'Private';
+	var name = 'Private';											// Right now, Privates are the only ones who can raid dungeons.
 	var initMilitary = randNumber(1,20);
 	var initEnemy = randNumber(1,20);								// Just a straight d20 roll to determine who goes first.
 	var roundDamage = 0;
 	var turn = 0;
+	var combatStatus = 1;											// 1 means combat is ongoing, 0 means it's over.
+	var combatResult = 0;											// 0 = military lost, 1 = npc lost
 	
 	if (initEnemy > initMilitary) {
 		turn = 1;
 	} else {
 		turn = 2;
 	}; // Turn 1 = enemy, turn 2 = player
-	
-	if (turn = 1) {
-		if (randNumber(1,20)+npc.attack) => privateDef {
-		roundDamage = randNumber(npc.damage);
-		privateHP -= roundDamage;
-		};
-		if privateHP <= 0 {
-			military--;
-		};
-		
-	if (turn = 2) {
-		if (randNumber(1,20)+privateAtk) => npc.defense {
-		roundDamage = randNumber(privateDam);
-		npc.hp -= roundDamage;
-		if npc.hp <= 0 {
-			// Put something here to do when npc dies
-		};
-		
-	};
-		
-	
-};
 
+
+	while (combatStatus = 1) { 
+		if (turn = 1) {
+			if (randNumber(1,20)+npc.attack) => privateDef {
+				roundDamage = randNumber(npc.damage);
+				privateHP -= roundDamage;
+			};
+			if privateHP <= 0 {											// Private is dead, remove him from everything.
+				military--;
+				totalSoldier--;
+				privates--;
+			};
+		};
+			if military <= 0 {
+			// Put some kind of code here to end combat since there's no more military left.
+				combatStatus = 0;										// Break out of the while loop.				
+				combatResult = 0;										// Military lost.
+			};
+		
+		if (turn = 2) {
+				if (randNumber(1,20)+privateAtk) => npc.defense {
+					roundDamage = randNumber(privateDam);
+					npc.hp -= roundDamage;
+				};
+			if npc.hp <= 0 {
+			// Put something here to do when npc dies
+				combatStatus = 0;										// End the while loop.
+				combatResult = 1;										// NPC lost
+			};
+		};
+	};
+	return combatResult;												// Combat is over, send results back.
+};
 
 function randNumber(min, max) {
   return Math.random() * (max - min) + min;

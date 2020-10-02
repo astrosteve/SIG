@@ -1,0 +1,28 @@
+SIG TODO:
+
+10/02/20
+
+MAJOR POINTS: 
+
+* Add general plot: The idea is you're the last of the "true gods" but have no power because no one is worshipping/praying to you. Pressing the Gain Power button is you worshipping yourself (loophole!) and then you recruit others to your faith. I have a much bigger fleshed out story that involves a war between the Gods and demons that killed the entire pantheon, with your mother using the last of her power moments before she died to send you far into the future in hopes of you surviving and rebuilding the pantheon. Eventually, you're found by a being who is the "universal essence" of time travel and was looking for you, knowing you existed somewhere in the future. He reveals your true nature to you. Keep in mind, you were a baby when you got sent forward, so you have no memory whatsoever of the "before times."
+
+* This game has a significant city building portion. Quite honestly, I mentally describe this game as "a city builder pretending to be an incremental game." The idea is you recruit Soldiers and Missionaries who then help build a city up where you live. The Soldiers raid dungeons and bring loot back to give your burgeoning city money. The Missionaries help recruit people to live near you and worship you and eventually can become Adventurers. Adventurers explore the (procedurally generated) wilderness and can
+kill npcs, find treasure and generally do adventurous things.
+
+* Your city will be surrounded by (procedurally generated) countries of other races. You can interact with these countries diplomatically or militarily. Invade or raid them, marry their daughter and eventually inherit the country, all that kind of stuff. The idea is to eventually rule the world.
+
+MINOR POINTS:
+
+* Dungeon code has not been tested. At all. Not even once. It _should_ work, but I may have missed something or wrote some bad code.
+
+* Missionaries still don't do anything. Change that.
+
+* There's no way for Soldiers to be promoted. Add in promotion system.
+
+* Message log needs to be set up. I have some code in there to get it started, but it hasn't ever been tested or fully implemented. It should sorta-kinda work right now, though.
+
+* Add in some concept of city and people settling it and building things. I want the player to have minimal control over that aspect. It's more of a "watch the city bloom" than "build it yourself" type thing.
+
+* Add the ability to formalize your new religion. I would want there to be a requirement on this of you needing a certain amount of followers (maybe 500,000?) before you can do this.
+
+* Most things don't increase in price to make it easier to test. Add this in.

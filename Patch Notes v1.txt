@@ -1,5 +1,15 @@
 PATCH NOTES:
 
+9/30/20 - Version 5.5
+
+* More work on the raiding system. It should successfully run through sngeons and then send a message to the console saying it was successful. I have not tried
+it out yet.
+
+* This is the last version for a long time, probably. I'm working now and have a lot less free time. Also, there's another project I've been planning and thinking
+about for years and I think I'd like to use my now-limited programming time on that project. I may come back to SIG at some point, but it'll probably be a while.
+
+* Added TODO document showing some future plans in case anyone is curious where this was heading.
+
 9/20/20 - Version 5
 
 * Started combat engine for dungeon raiding. Still a long way from being functional, but it's getting there. Since this version isn't technically fully running,
